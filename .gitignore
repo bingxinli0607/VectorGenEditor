@@ -1,0 +1,30 @@
+# Build artifacts
+build/
+*.o
+*.obj
+*.moc
+*.exe
+*.app
+
+# Qt/C++ generated
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+*.pro.user
+Makefile
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backup
+*.bak
+*.orig

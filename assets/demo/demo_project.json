@@ -1,0 +1,261 @@
+{
+    "appName": "VectorGenEditor",
+    "currentLayerIndex": 1,
+    "formatVersion": 1,
+    "layers": [
+        {
+            "name": "Layer 1",
+            "shapes": [
+                {
+                    "id": "7a419af7-f08e-4eac-899e-0379b4b90587",
+                    "style": {
+                        "fillColor": "#4A90D9",
+                        "strokeColor": "#333333",
+                        "strokeWidth": 2,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 100,
+                        "rotation": 0,
+                        "width": 150,
+                        "x": 50,
+                        "y": 50
+                    },
+                    "type": "Rect"
+                },
+                {
+                    "id": "404bfbc3-0065-4dd7-beb5-a8a07ce6ee81",
+                    "style": {
+                        "fillColor": "#E8734A",
+                        "strokeColor": "#333333",
+                        "strokeWidth": 2,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 120,
+                        "rotation": 0,
+                        "width": 180,
+                        "x": 250,
+                        "y": 50
+                    },
+                    "type": "Ellipse"
+                },
+                {
+                    "id": "c1143b0c-550a-4baf-a455-be74acb4b76e",
+                    "style": {
+                        "fillColor": "#50B86C",
+                        "strokeColor": "#333333",
+                        "strokeWidth": 2,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 60,
+                        "rotation": 0,
+                        "width": 69.2820323027551,
+                        "x": 115.35898384862246,
+                        "y": 260
+                    },
+                    "type": "Polygon",
+                    "typeSpecific": {
+                        "vertices": [
+                            {
+                                "x": 150,
+                                "y": 260
+                            },
+                            {
+                                "x": 184.64101615137756,
+                                "y": 320
+                            },
+                            {
+                                "x": 115.35898384862246,
+                                "y": 320
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "8ab3da40-2ea0-4590-a38e-eb80f84f87fe",
+                    "style": {
+                        "fillColor": "#9B59B6",
+                        "strokeColor": "#333333",
+                        "strokeWidth": 2,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 108.54101966249686,
+                        "rotation": 0,
+                        "width": 114.12678195541844,
+                        "x": 342.9366090222908,
+                        "y": 240
+                    },
+                    "type": "Polygon",
+                    "typeSpecific": {
+                        "vertices": [
+                            {
+                                "x": 400,
+                                "y": 240
+                            },
+                            {
+                                "x": 457.0633909777092,
+                                "y": 281.45898033750314
+                            },
+                            {
+                                "x": 435.2671151375484,
+                                "y": 348.54101966249686
+                            },
+                            {
+                                "x": 364.7328848624516,
+                                "y": 348.54101966249686
+                            },
+                            {
+                                "x": 342.9366090222908,
+                                "y": 281.45898033750314
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "bcc094e2-be99-4e89-83b1-321241611288",
+                    "style": {
+                        "fillColor": "none",
+                        "strokeColor": "#E74C3C",
+                        "strokeWidth": 3,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 70,
+                        "rotation": 0,
+                        "width": 200,
+                        "x": 500,
+                        "y": 50
+                    },
+                    "type": "Polyline",
+                    "typeSpecific": {
+                        "closed": false,
+                        "points": [
+                            {
+                                "x": 500,
+                                "y": 50
+                            },
+                            {
+                                "x": 580,
+                                "y": 100
+                            },
+                            {
+                                "x": 650,
+                                "y": 60
+                            },
+                            {
+                                "x": 700,
+                                "y": 120
+                            }
+                        ]
+                    }
+                }
+            ],
+            "visible": true
+        },
+        {
+            "name": "Annotations",
+            "shapes": [
+                {
+                    "id": "fd544126-6254-40fa-84ce-e7efd65730b0",
+                    "style": {
+                        "fillColor": "#2C3E50",
+                        "strokeColor": "none",
+                        "strokeWidth": 0,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 50,
+                        "rotation": 0,
+                        "width": 300,
+                        "x": 50,
+                        "y": 400
+                    },
+                    "type": "Text",
+                    "typeSpecific": {
+                        "fontFamily": "sans-serif",
+                        "fontSize": 24,
+                        "text": "VectorGenEditor Demo"
+                    }
+                },
+                {
+                    "id": "0430558c-a875-4c84-bdd1-ae643cf266c6",
+                    "style": {
+                        "fillColor": "#F1C40F",
+                        "strokeColor": "#333333",
+                        "strokeWidth": 2,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 100,
+                        "rotation": 0,
+                        "width": 100,
+                        "x": 350,
+                        "y": 400
+                    },
+                    "type": "Star",
+                    "typeSpecific": {
+                        "innerRatio": 0.5,
+                        "points": 5,
+                        "vertices": [
+                        ]
+                    }
+                },
+                {
+                    "id": "bd0cbfa2-7a01-4ae2-9daa-7080f28e9ded",
+                    "style": {
+                        "fillColor": "#3498DB",
+                        "strokeColor": "#2C3E50",
+                        "strokeWidth": 2,
+                        "visible": true
+                    },
+                    "transform": {
+                        "height": 15,
+                        "rotation": 0,
+                        "width": 185,
+                        "x": 492.5,
+                        "y": 422.5
+                    },
+                    "type": "Arrow",
+                    "typeSpecific": {
+                        "headLength": 20,
+                        "headWidth": 15,
+                        "vertices": [
+                            {
+                                "x": 500,
+                                "y": 432
+                            },
+                            {
+                                "x": 630,
+                                "y": 432
+                            },
+                            {
+                                "x": 630,
+                                "y": 437.5
+                            },
+                            {
+                                "x": 650,
+                                "y": 430
+                            },
+                            {
+                                "x": 630,
+                                "y": 422.5
+                            },
+                            {
+                                "x": 630,
+                                "y": 428
+                            },
+                            {
+                                "x": 500,
+                                "y": 428
+                            }
+                        ]
+                    }
+                }
+            ],
+            "visible": true
+        }
+    ]
+}
