@@ -37,6 +37,8 @@ private:
     void setContentVisible(bool visible);
     void connectEditors();
     void updateTextColorButton();
+    void updateFillColorButton();
+    void updateStrokeColorButton();
 
     DocumentController *m_controller = nullptr;
     Shape *m_shape = nullptr;
@@ -59,6 +61,8 @@ private:
     QLineEdit *m_strokeEdit = nullptr;
     QDoubleSpinBox *m_strokeWSpin = nullptr;
     QCheckBox  *m_visibleCb = nullptr;
+    QPushButton *m_fillColorBtn = nullptr;
+    QPushButton *m_strokeColorBtn = nullptr;
 
     QGroupBox *m_textGroup = nullptr;
     QLineEdit *m_textEdit = nullptr;

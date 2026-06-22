@@ -27,7 +27,6 @@ void ResizeShapeCommand::applyTransform(const Transform &t, double fontSize)
     if (fontSize >= 0.0) {
         if (auto *txt = dynamic_cast<TextShape*>(shape)) {
             txt->setFontSize(fontSize);
-            txt->syncBoundsToText();
         }
     } else {
         shape->scaleLocalGeometry(currentB, Geometry::localBounds(t));

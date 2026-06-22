@@ -46,6 +46,14 @@ QRectF ShapeGraphicsItem::localBounds() const
 void ShapeGraphicsItem::updateFromModel()
 {
     if (!m_shape) return;
+
+    // Must call before any geometry-affecting change so the
+    // scene index is invalidated even when only width/height
+    // changed (e.g. text auto-resize) while pos/rotation stay
+    // the same – otherwise setPos()/setRotation() are no-ops
+    // and the old bounding rect remains cached by Qt.
+    prepareGeometryChange();
+
     Transform t = m_shape->transform();
     setPos(t.x, t.y);
     setTransformOriginPoint(QPointF(t.width / 2.0, t.height / 2.0));
@@ -53,7 +61,6 @@ void ShapeGraphicsItem::updateFromModel()
     const bool interactive = m_shape->style().visible;
     setAcceptedMouseButtons(interactive ? Qt::LeftButton : Qt::NoButton);
     setFlag(QGraphicsItem::ItemIsSelectable, interactive);
-    prepareGeometryChange();
     update();
 }
 

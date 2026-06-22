@@ -11,6 +11,7 @@
 #include <QUndoStack>
 #include <QSignalBlocker>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QFormLayout>
 #include <QLineEdit>
 #include <QDoubleSpinBox>
@@ -203,17 +204,36 @@ void PropertyPanel::buildUI()
     auto *appearanceGroup = new QGroupBox(QStringLiteral("外观"));
     appearanceGroup->setToolTip(QStringLiteral("填充、描边与可见性"));
     auto *appearanceForm = makeForm(appearanceGroup);
-    m_fillEdit = new QLineEdit();
+
+    auto makeColorRow = [](QPushButton *btn, QLineEdit *edit) -> QWidget* {
+        auto *w = new QWidget();
+        auto *h = new QHBoxLayout(w);
+        h->setContentsMargins(0, 0, 0, 0);
+        h->setSpacing(6);
+        btn->setFixedSize(36, 28);
+        btn->setCursor(Qt::PointingHandCursor);
+        btn->setText(QString());
+        edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        h->addWidget(btn);
+        h->addWidget(edit);
+        return w;
+    };
+
+    m_fillColorBtn   = new QPushButton();
+    m_strokeColorBtn = new QPushButton();
+    m_fillEdit   = new QLineEdit();
     m_strokeEdit = new QLineEdit();
     m_strokeWSpin = makeSpin(0, 100, 1);
-    m_visibleCb = new QCheckBox(QStringLiteral("可见"));
+    m_visibleCb  = new QCheckBox(QStringLiteral("可见"));
+    m_fillColorBtn->setToolTip(QStringLiteral("点击选择填充颜色"));
+    m_strokeColorBtn->setToolTip(QStringLiteral("点击选择描边颜色"));
     m_fillEdit->setMinimumHeight(28);
     m_strokeEdit->setMinimumHeight(28);
     m_fillEdit->setToolTip(QStringLiteral("填充颜色，如 #RRGGBB 或 none"));
     m_strokeEdit->setToolTip(QStringLiteral("描边颜色"));
     m_strokeWSpin->setToolTip(QStringLiteral("线宽"));
-    appearanceForm->addRow(QStringLiteral("填充"), m_fillEdit);
-    appearanceForm->addRow(QStringLiteral("描边"), m_strokeEdit);
+    appearanceForm->addRow(QStringLiteral("填充"), makeColorRow(m_fillColorBtn, m_fillEdit));
+    appearanceForm->addRow(QStringLiteral("描边"), makeColorRow(m_strokeColorBtn, m_strokeEdit));
     appearanceForm->addRow(QStringLiteral("线宽"), m_strokeWSpin);
     appearanceForm->addRow(QString(), m_visibleCb);
     appearanceGroup->setLayout(appearanceForm);
@@ -262,6 +282,34 @@ void PropertyPanel::connectEditors()
     connect(m_strokeEdit, &QLineEdit::editingFinished, this, &PropertyPanel::commitChanges);
     connect(m_visibleCb, &QCheckBox::toggled, this, &PropertyPanel::commitChanges);
 
+    // --- fill color picker ---
+    connect(m_fillColorBtn, &QPushButton::clicked, this, [this]() {
+        if (!m_shape || m_populating) return;
+        QColor current(m_fillEdit->text().trimmed());
+        if (m_fillEdit->text().trimmed() == QStringLiteral("无"))
+            current = Qt::white;
+        const QColor picked = QColorDialog::getColor(
+            current.isValid() ? current : Qt::white,
+            this, QStringLiteral("填充颜色"));
+        if (!picked.isValid()) return;
+        m_fillEdit->setText(picked.name());
+        updateFillColorButton();
+        commitChanges();
+    });
+
+    // --- stroke color picker ---
+    connect(m_strokeColorBtn, &QPushButton::clicked, this, [this]() {
+        if (!m_shape || m_populating) return;
+        const QColor current(m_strokeEdit->text().trimmed());
+        const QColor picked = QColorDialog::getColor(
+            current.isValid() ? current : QColor(QStringLiteral("#333333")),
+            this, QStringLiteral("描边颜色"));
+        if (!picked.isValid()) return;
+        m_strokeEdit->setText(picked.name());
+        updateStrokeColorButton();
+        commitChanges();
+    });
+
     connect(m_textEdit, &QLineEdit::editingFinished, this, &PropertyPanel::commitTextChanges);
     connect(m_fontCombo, &QFontComboBox::currentFontChanged, this, [this](const QFont &) {
         if (!m_populating)
@@ -292,6 +340,26 @@ void PropertyPanel::updateTextColorButton()
         QStringLiteral("background-color: %1; color: %2; border: 1px solid #D9DEE7; border-radius: 4px;")
             .arg(bg, fg));
     m_textColorBtn->setText(bg);
+}
+
+void PropertyPanel::updateFillColorButton()
+{
+    QColor c(m_fillEdit->text().trimmed());
+    if (m_fillEdit->text().trimmed() == QStringLiteral("无"))
+        c = Qt::white;
+    const QString bg = c.isValid() ? c.name() : QStringLiteral("#FFFFFF");
+    m_fillColorBtn->setStyleSheet(
+        QStringLiteral("background-color: %1; border: 1px solid #D9DEE7; border-radius: 3px;")
+            .arg(bg));
+}
+
+void PropertyPanel::updateStrokeColorButton()
+{
+    const QColor c(m_strokeEdit->text().trimmed());
+    const QString bg = c.isValid() ? c.name() : QStringLiteral("#333333");
+    m_strokeColorBtn->setStyleSheet(
+        QStringLiteral("background-color: %1; border: 1px solid #D9DEE7; border-radius: 3px;")
+            .arg(bg));
 }
 
 void PropertyPanel::setContentVisible(bool visible)
@@ -375,6 +443,8 @@ void PropertyPanel::populateFromShape()
         m_strokeWSpin->setValue(s.strokeWidth);
         m_visibleCb->setChecked(s.visible);
     }
+    updateFillColorButton();
+    updateStrokeColorButton();
 
     if (auto *txt = dynamic_cast<TextShape*>(m_shape)) {
         QSignalBlocker b1(m_textEdit), b2(m_fontCombo), b3(m_fontSizeSpin);
@@ -399,6 +469,8 @@ void PropertyPanel::setInputsEnabled(bool enabled)
     m_rotSpin->setEnabled(enabled);
     m_fillEdit->setEnabled(enabled);
     m_strokeEdit->setEnabled(enabled);
+    m_fillColorBtn->setEnabled(enabled);
+    m_strokeColorBtn->setEnabled(enabled);
     m_strokeWSpin->setEnabled(enabled);
     m_visibleCb->setEnabled(enabled);
     m_objectTitleLabel->setEnabled(enabled);
